@@ -1,0 +1,62 @@
+#!/bin/bash
+# dev-env: script to add utilities
+# for a shiny dev environment
+INSTALLERDIR="$( cd "$( dirname "$0" )" && pwd )"
+echo "DEV_ENV lives at: ${INSTALLERDIR}"
+USERPWD=$PWD
+
+# install rhino on debian systems and use jshint.js in ~/bin
+# install nodejs on ubuntu and npm install jshint
+apt-get -y install sudo rhino imagemagick par pdftk \
+curl wget git subversion m4 make makedev zip \
+python-crypto python-oauth python-openssl python-pycurl \
+python-svn python-pythonmagick python-simplejson \
+vim vim-nox vim-scripts \
+ssl-cert mailutils memcached \
+yui-compressor pyflakes tidy \
+mongodb mongodb-clients mongodb-server mongodb-dev
+apt-get -y install nodejs npm
+npm install jshint -g
+# ubuntu uses libzend-framework-php
+apt-get -y install libzend-framework-php
+# debian uses zendframework
+apt-get -y install zendframework
+phpmyadmin php-apc php5-curl php5-imagick php5-mcrypt php5-memcache \
+php5-mysql php5-suhosin php5-gd php5-mcrypt \
+a2enmod rewrite
+a2enmod ssl
+a2enmod proxy_http
+a2enmod deflate
+/etc/init.d/apache2 restart
+APPENGINEVER=1.6.5
+APPENGINEDIR=/usr/share/google_appengine
+CLOSURECOMPILERDIR=/usr/share/google-closure-compiler
+JSHINTDIR=/usr/share/jshint
+PHPMOADMINDIR=/usr/share/phpmoadmin
+YUIDIR=/usr/share/yui-compressor
+if [ ! -d "${APPENGINEDIR}" ]; then
+wget http://googleappengine.googlecode.com/files/google_appengine_$APPENGINEVER.zip
+unzip google_appengine_$APPENGINEVER.zip
+rm google_appengine_$APPENGINEVER.zip
+mv google_appengine /usr/share/
+fi
+if [ ! -d "${CLOSURECOMPILERDIR}" ]; then
+wget http://closure-compiler.googlecode.com/files/compiler-latest.zip
+mkdir $CLOSURECOMPILERDIR
+unzip compiler-latest.zip -d $CLOSURECOMPILERDIR
+chmod 644 $CLOSURECOMPILERDIR/compiler.jar
+rm compiler-latest.zip
+fi
+if [ ! -d "${JSHINTDIR}" ]; then
+git clone git://github.com/jshint/jshint.git /usr/share/jshint
+cd $JSHINTDIR
+make rhino
+cd $USERPWD
+fi
+if [ ! -d "${YUIDIR}" ]; then
+apt-get -y install yui-compressor
+fi
+if [ ! -d "${PHPMOADMINDIR}" ]; then
+  git clone git://github.com/MongoDB-Rox/phpMoAdmin-MongoDB-Admin-Tool-for-PHP.git $PHPMOADMINDIR
+fi
+cd $USERPWD
