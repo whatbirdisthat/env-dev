@@ -8,7 +8,7 @@ USERPWD=$PWD
 # install rhino on debian systems and use jshint.js in ~/bin
 # install nodejs on ubuntu and npm install jshint
 apt-get -y install sudo rhino par pdftk \
-optipng pngcrush advancecomp imagemagick \
+optipng pngcrush advancecomp jpegoptim imagemagick \
 curl wget git subversion m4 make makedev zip \
 python-crypto python-oauth python-openssl python-pycurl \
 python-svn python-pythonmagick python-simplejson \
