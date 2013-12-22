@@ -58,7 +58,7 @@ mv google_appengine /usr/share/
 fi
 
 if [ ! -d "${CLOSURECOMPILERDIR}" ]; then
-wget http://closure-compiler.googlecode.com/files/compiler-latest.zip
+wget http://dl.google.com/closure-compiler/compiler-latest.zip
 mkdir $CLOSURECOMPILERDIR
 unzip compiler-latest.zip -d $CLOSURECOMPILERDIR
 chmod 644 $CLOSURECOMPILERDIR/compiler.jar
